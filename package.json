@@ -1,0 +1,39 @@
+{
+  "name": "TypeScript-Test",
+  "description": "Testing TypeScript",
+  "version": "0.1.0",
+  "homepage": "https://github.com/alan/TypeScript-Test",
+  "author": {
+    "name": "Alan Foster",
+    "url": "http://www.alanfoster.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alan/TypeScript-Test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alan/TypeScript-Test/issues"
+  },
+  "licenses": [
+    {
+      "type": "none",
+      "url": "https://github.com/alan/TypeScript-Test/blob/master/LICENSE-none"
+    }
+  ],
+  "main": "lib/TypeScript-Test",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  },
+  "keywords": [],
+  "dependencies": {
+    "grunt": "~0.3.17",
+    "grunt-type": "~0.8.1",
+    "grunt-reload": "~0.2.0" 
+  }
+}
