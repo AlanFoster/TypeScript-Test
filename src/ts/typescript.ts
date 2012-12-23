@@ -1,15 +1,26 @@
-window.onload = (e) => {
+module Calculator {
     var getNumberFromDOM = (selector : string) : number {
         return Number((<HTMLInputElement> document.querySelector(selector)).value);
     }
-    var addNumbers = (a : number, b : number) : number => {
-        return a + b;
-    };
+    export class Adder {
+       constructor(public firstNumberQuerySelector : string, public secondNumberQuerySelector) {
+       }
+       private addNumbers = (a : number, b : number) : number => {
+           return a + b;
+       };
+       add() {
+          return this.addNumbers(getNumberFromDOM(this.firstNumberQuerySelector), getNumberFromDOM(this.secondNumberQuerySelector));
+       }
+    }
+}
+
+window.onload = (e) => {
+   var adder = new Calculator.Adder("#firstNumber", "#secondNumber");
+
     var submitButton = <any> document.querySelector("#submitButton");
     submitButton.onclick = () => {
-        var firstNumber = getNumberFromDOM("#firstNumber") || 0;
-        var secondNumber = getNumberFromDOM("#secondNumber") || 0;
+        var result = adder.add();
         var responseField = <HTMLDivElement> document.querySelector("#response");
-        responseField.innerHTML = "The sum of " + firstNumber + " + " + secondNumber + " is " + addNumbers(firstNumber, secondNumber) + "!";
+        responseField.innerHTML = "The sum is " + result + "!";
     };
 }
