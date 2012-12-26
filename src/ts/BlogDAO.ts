@@ -1,0 +1,1 @@
+// Moved to app.ts because of compile order issues

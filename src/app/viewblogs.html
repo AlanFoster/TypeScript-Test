@@ -1,0 +1,20 @@
+<!-- No Controller Specified -->
+<div>
+    <!-- Only Show this when there are no blogs created -->
+    <div ng-show="getBlogs().length == 0">
+        Sorry currently there are no blogs.
+    </div>
+    <div ng-show="getBlogs().length > 0">
+        Search By Title
+        <input type="text" ng-model="query" placeholder="Search" />
+        <div ng-repeat="blog in getBlogs() | filter:query | orderBy:'date'">
+            <div style="border: 1px solid grey">
+                <div>
+                    <span >Title {{blog.title}}</span>
+                    <span >{{blog.date | date: 'yyyy-MM-dd'}}</span>
+                </div>
+                <div>Message : {{blog.message}}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<!-- Todo Add Validation Messages -->
+<form name="blogDetailForm">
+    <div>
+        <input type="title" ng-model="blog.title" placeholder="Title" required>
+    </div>
+    <div>
+        <textarea name="message" ng-model="blog.message" placeholder="Message" required></textarea>
+    </div>
+
+    <div><input type="button" ng-click="save()" value="Create Blog" ng-disabled="blogDetailForm.$invalid"></div>
+</form>
