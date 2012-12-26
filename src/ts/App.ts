@@ -1,4 +1,3 @@
-/// <reference path="./../ts.def/angularjs/angular-1.0.d.ts" />
 declare var ViewBlogsController:any;
 declare var BlogManagerController;
 
@@ -23,13 +22,7 @@ class BlogDao {
 
 var blogDao = new BlogDao();
 
-// Why do I have to do this? Why is IntellliJ not picking up types?
-interface App {
-    config : (...args:any[]) => void;
-    factory : (...args:any[]) => void;
-}
-
-var app : App = angular.module("blog", []);
+var app : AngularModule = angular.module("blog", []);
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {controller: ViewBlogsController, templateUrl: "./viewblogs.html"})

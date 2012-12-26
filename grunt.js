@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   var lintFiles = ['grunt.js', 'src/**/*.js', 'test/**/*.js'];
-  var typeScriptFiles = ['src/**/*.ts'];
+  var typeScriptFiles = ['src/ts/*.ts', 'src/ts.def/**/*.ts'];
 
   grunt.initConfig({
     pkg: '<json:package.json>',

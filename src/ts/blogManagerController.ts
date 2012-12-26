@@ -1,15 +1,19 @@
-/// <reference path="./../ts.def/angularjs/angular-1.0.d.ts" />
-/// <reference path="app.ts" />
+/// <reference path="../ts.def/angularjs/Angular.d.ts" />
+/// <reference path="./BlogDao.ts" />
+/// <reference path="./app.ts" />
 
 module BlogManagerController {
-    // Reference types seem to be ignored...
-    // it complains about unresolved type ILocationService when I use ' $location : ILocationService' for some reason?
-    export function CreateBlogController($scope, $location, blogDao:BlogDao) {
+    export interface Scope extends ng.Scope {
+        blog : IBlog;
+        save : () => void;
+    }
+
+    export function CreateBlogController($scope : BlogManagerController.Scope, $location : ng.Location, blogDao : BlogDao) {
         $scope.save = function () {
             blogDao.addBlog($scope.blog.title, $scope.blog.message);
             $location.path("/");
         }
     }
-    export function EditBlogController($scope, $location, blogDao) {
+    export function EditBlogController($scope : BlogManagerController.Scope, $location : ng.Location, blogDao : BlogDao) {
     }
 }
