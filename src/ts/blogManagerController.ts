@@ -8,12 +8,22 @@ module BlogManagerController {
         save : () => void;
     }
 
+    export interface RouteParams {
+        id : string;
+    }
+
     export function CreateBlogController($scope : BlogManagerController.Scope, $location : ng.Location, blogDao : BlogDao) {
         $scope.save = function () {
-            blogDao.addBlog($scope.blog.title, $scope.blog.message);
+            blogDao.createBlog($scope.blog.title, $scope.blog.message);
             $location.path("/");
         }
     }
-    export function EditBlogController($scope : BlogManagerController.Scope, $location : ng.Location, blogDao : BlogDao) {
+    export function EditBlogController($scope : BlogManagerController.Scope, $location : ng.Location, $routeParams : RouteParams, blogDao : BlogDao) {
+        var blogId = $routeParams.id;
+        $scope.blog = blogDao.getBlog(blogId);
+        $scope.save = function () {
+            blogDao.updateBlog($scope.blog);
+            $location.path("/");
+        }
     }
 }

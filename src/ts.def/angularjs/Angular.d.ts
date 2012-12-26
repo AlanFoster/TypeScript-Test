@@ -234,8 +234,8 @@ declare module ng {
         template?: string;
         templateUrl?: string;
         resolve?: RouteMap;
-        key: string;
-        factory: any;
+        key?: string;
+        factory?: any;
         redirectTo?: any;
     }
 

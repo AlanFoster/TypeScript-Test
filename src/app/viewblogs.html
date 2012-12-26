@@ -7,13 +7,15 @@
     <div ng-show="getBlogs().length > 0">
         Search By Title
         <input type="text" ng-model="query" placeholder="Search" />
-        <div ng-repeat="blog in getBlogs() | filter:query | orderBy:'date'">
+        <div ng-repeat="blog in getBlogs() | filter:query | orderBy:'id':reverse">
             <div style="border: 1px solid grey">
                 <div>
-                    <span >Title {{blog.title}}</span>
-                    <span >{{blog.date | date: 'yyyy-MM-dd'}}</span>
+                    <span>{{blog.id}} - </span>
+                    <span>Title {{blog.title}}</span>
+                    <span>{{blog.date | date: 'yyyy-MM-dd'}}</span>
                 </div>
                 <div>Message : {{blog.message}}</div>
+                <a href="#/edit/{{blog.id}}">Edit Me</a>
             </div>
         </div>
     </div>
