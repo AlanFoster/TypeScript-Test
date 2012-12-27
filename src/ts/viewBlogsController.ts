@@ -1,16 +1,29 @@
 /// <reference path="./app.ts" />
-(function(app : AngularModule) {
-    app.config(function ($routeProvider : ng.RouteProvider) {
-        $routeProvider
-            .when("/viewblogs", { controller: ViewBlogsController, templateUrl: "./viewblogs.html"})
-    });
 
-    function ViewBlogsController($scope, blogDao) {
-        $scope.getBlogs = function() {
+/**
+ * Provide the controller operations under the BlogManager namespace
+ */
+module BlogManagerController {
+    export interface Scope extends ng.Scope {
+        getBlogs : () => void;
+    }
+
+    export function ViewBlogsController($scope : Scope, blogDao : BlogDao) {
+        $scope.getBlogs = function () {
             return blogDao.getBlogsAsArray();
         }
     };
+}
 
-    // Register as a controller
-    app.controller("ViewBlogsController", ViewBlogsController);
+/**
+ * Register our routing requirements for this controller
+ */
+(function (app:AngularModule) {
+    app.config(function ($routeProvider:ng.RouteProvider) {
+        $routeProvider
+            .when("/viewblogs", { controller: BlogManagerController.ViewBlogsController, templateUrl: "./viewblogs.html"})
+    });
+
+    // Register as a controller in case we need to be used again
+    app.controller("BlogManager.ViewBlogsController", BlogManagerController.ViewBlogsController);
 })(getApp());

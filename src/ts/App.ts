@@ -1,10 +1,9 @@
 /// <reference path="../ts.def/angularjs/Angular.d.ts" />
 /// <reference path="./BlogDao.ts" />
 
-declare var ViewBlogsController:any;
-declare var BlogManagerController;
-
-
+/***
+ * Instantiate the app module and offer a getter method for the object for reuse/abstraction
+ */
 var _app;
 function getApp() : AngularModule {
     if(!_app) {
@@ -13,7 +12,7 @@ function getApp() : AngularModule {
     return _app;
 }
 
-/**
+/***
  * Define the default routes for the app
  */
 (function(app : AngularModule) {

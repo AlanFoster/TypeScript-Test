@@ -27,7 +27,8 @@ module.exports = function(grunt) {
           'src/app/js/app.js': typeScriptFiles
         },
         options: {
-          target: 'ES5'
+          target: 'ES5',
+          comments: true
         }
       },
       options: {

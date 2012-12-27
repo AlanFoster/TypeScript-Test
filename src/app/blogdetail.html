@@ -11,4 +11,7 @@
     </div>
 
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>
+    <div ng-show="blog.id">
+        <input type="button" ng-click="remove()" value="Remove Blog">
+    </div>
 </form>
