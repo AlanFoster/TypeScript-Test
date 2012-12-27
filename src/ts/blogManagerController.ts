@@ -27,3 +27,15 @@ module BlogManagerController {
         }
     }
 }
+
+(function(app : AngularModule) {
+    app.config(function ($routeProvider : ng.RouteProvider) {
+        $routeProvider
+            .when("/create", {controller: BlogManagerController.CreateBlogController, templateUrl: "./blogdetail.html"})
+            .when("/edit/:id", {controller: BlogManagerController.EditBlogController, templateUrl: "./blogdetail.html"})
+    });
+
+    // Register as a controller in case we need to be used again
+    app.controller("BlogManagerController.CreateBlogController", BlogManagerController.CreateBlogController);
+    app.controller("BlogManagerController.EditBlogController", BlogManagerController.EditBlogController);
+})(getApp());
