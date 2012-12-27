@@ -1,5 +1,5 @@
-TypeScript And AngularJs
-========================
+TypeScript Test
+================
 
 ##What is this?##
 This was just a basic test to see how well TypeScript can be used for "application-scale" development. The end result of the project was a very basic blogging system with basic CRUD operations (Create, Read, Update, Delete)
