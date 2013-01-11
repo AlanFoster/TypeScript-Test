@@ -27,3 +27,23 @@ module BlogManagerController {
     // Register as a controller in case we need to be used again
     app.controller("BlogManager.ViewBlogsController", BlogManagerController.ViewBlogsController);
 })(getApp());
+
+/**
+ * Create the basic Directive for CodeMirror
+ */
+(function(app:AngularModule) {
+    app.value('ui.config', {
+        codemirror: {
+            theme: "monokai",
+            lineNumbers: true,
+            mode: {
+                name: "javascript",
+                json: true
+            },
+            onChange: function(cm) {
+                console.log("Cm is updated")
+            }
+        }
+    });
+})(getApp());
+

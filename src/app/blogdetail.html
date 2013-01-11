@@ -4,10 +4,10 @@
         <input type="hidden" ng-model="blog.id" >
     </div>
     <div>
-        <input type="title" ng-model="blog.title" placeholder="Title" required>
+        Title : <input type="title" ng-model="blog.title" placeholder="Title" required>
     </div>
     <div>
-        <textarea name="message" ng-model="blog.message" placeholder="Message" required></textarea>
+        Content : <textarea ui-codemirror ng-model="codeMirrorModel"  placeholder="Message"></textarea>
     </div>
 
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>

@@ -7,7 +7,7 @@
 var _app;
 function getApp() : AngularModule {
     if(!_app) {
-        _app =  angular.module("blog", []);
+        _app =  angular.module("blog", ["ui"]);
     }
     return _app;
 }
