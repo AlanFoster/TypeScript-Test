@@ -4,14 +4,12 @@
         <input type="hidden" ng-model="blog.id" >
     </div>
     <div>
-        Title : <input type="title" ng-model="blog.title" placeholder="Title" required>
+        Title : <input type="title" ng-model="blog.title" placeholder="Title"/>
+        <textarea ui-codemirror="" ng-model="codeMirrorModel" placeholder="Message"></textarea>
     </div>
-    <div>
-        Content : <textarea ui-codemirror ng-model="codeMirrorModel"  placeholder="Message"></textarea>
-    </div>
-
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>
     <div ng-show="blog.id">
         <input type="button" ng-click="remove()" value="Remove Blog">
     </div>
 </form>
+
