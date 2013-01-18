@@ -238,42 +238,57 @@ angular.module('ui.directives').directive('uiTinymce', ['ui.config', function (u
 angular.module('ui.directives').directive('uiCodemirror', ['ui.config', '$timeout', function (uiConfig, $timeout) {
 	'use strict';
 
-	var events = ["cursorActivity", "viewportChange", "gutterClick", "focus", "blur", "scroll", "update"];
+	var events = ["change", "cursorActivity", "viewportChange", "gutterClick", "focus", "blur", "scroll", "update"];
 	return {
 		restrict:'A',
 		require:'ngModel',
 		link:function (scope, elm, attrs, ngModel) {
-			var options, opts, onChange, deferCodeMirror, codeMirror;
+			var defaultConfigOptions, combinedOptions, deferCodeMirror, codeMirror;
 
 			if (elm[0].type !== 'textarea') {
 				throw new Error('uiCodemirror3 can only be applied to a textarea element');
 			}
 
-			options = uiConfig.codemirror || {};
-			opts = angular.extend({}, options, scope.$eval(attrs.uiCodemirror));
+			defaultConfigOptions = uiConfig.codemirror || {};
+			
+			// Apply any options to the codeMirror object
+			function applyOptions(codeMirror, newOptions, oldOptions) {
+				// Combine the Options with the overriding config options
+				var combinedOptions = angular.extend({}, defaultConfigOptions, newOptions);
+				angular.forEach(newOptions, function(value, key) {
+					// Check if this option is an event listener
+					if(key.indexOf("on") === 0) {
+						var eventName = key[2].toLowerCase() + key.slice(3);					
+						if (events.indexOf(eventName) === -1 || typeof value !== "function") return;
+						
+						// Unregister any old function listeners
+						if(oldOptions && oldOptions[key]) {
+							codeMirror.off(eventName, oldOptions[key]);
+						}
+						codeMirror.on(eventName, value);
+					} else {
+					
+						codeMirror.setOption(key, value);
+					}
+				});
+			}
 
-			onChange = function (aEvent) {
-				return function (instance, changeObj) {
+			// Register all of the relevant listeners for model changes/codeMirror changes
+			function registerListeners(codeMirror) {
+				var onChange = function (instance, changeObj) {
 					var newValue = instance.getValue();
 					if (newValue !== ngModel.$viewValue) {
 						ngModel.$setViewValue(newValue);
 						scope.$apply();
 					}
-					if (typeof aEvent === "function")
-						aEvent(instance, changeObj);
 				};
-			};
-
-			deferCodeMirror = function () {
-				codeMirror = CodeMirror.fromTextArea(elm[0], opts);
-				codeMirror.on("change", onChange(opts.onChange));
-
-				for (var i = 0, n = events.length, aEvent; i < n; ++i) {
-					aEvent = opts["on" + events[i].charAt(0).toUpperCase() + events[i].slice(1)];
-					if (aEvent === void 0) continue;
-					if (typeof aEvent !== "function") continue;
-					codeMirror.on(events[i], aEvent);
-				}
+				codeMirror.on("change", onChange);
+				
+				// Watch all uiCodeMirror config and reapply options
+				scope.$watch(attrs.uiCodemirror, function(newOptions, oldOptions, scope) {
+					applyOptions(codeMirror, newOptions, oldOptions);
+				}, true);
+				
 
 				// CodeMirror expects a string, so make sure it gets one.
 				// This does not change the model.
@@ -292,11 +307,18 @@ angular.module('ui.directives').directive('uiCodemirror', ['ui.config', '$timeou
 				ngModel.$render = function () {
 					codeMirror.setValue(ngModel.$viewValue);
 				};
-
+			}
+			
+			deferCodeMirror = function () {
+				// Create the CodeMirror instance and set its config options
+				codeMirror = CodeMirror.fromTextArea(elm[0]);
+				applyOptions(codeMirror, scope.$eval(attrs.uiCodemirror));
+			
+				// Create Listeners
+				registerListeners(codeMirror);
 			};
 
 			$timeout(deferCodeMirror);
-
 		}
 	};
 }]);

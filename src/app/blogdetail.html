@@ -4,8 +4,18 @@
         <input type="hidden" ng-model="blog.id" >
     </div>
     <div>
+		<div>
+			Current theme :: {{GlobalCodeMirrorConfig.theme}}
+		
+			<select ng-model="GlobalCodeMirrorConfig.theme" >
+				<option value="monokai" selected="selected">monokai</option>
+				<option value="default">default</option>
+			</select>
+			<div>Theme {{theme}}</div>
+		</div>
         Title : <input type="title" ng-model="blog.title" placeholder="Title"/>
-        <textarea ui-codemirror="" ng-model="codeMirrorModel" placeholder="Message"></textarea>
+		<div><input type="text" ng-model="codeMirrorModel" /></div>
+        <textarea ui-codemirror="GlobalCodeMirrorConfig" ng-model="codeMirrorModel" placeholder="Message"></textarea>
     </div>
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>
     <div ng-show="blog.id">
