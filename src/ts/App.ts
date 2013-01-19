@@ -23,6 +23,19 @@ function getApp() : AngularModule {
     });
 })(getApp());
 
+function FooController($rootScope, $scope) {
+	var globalCodeMirrorOptions = $rootScope.GlobalConfig.codeMirror;
+	var customOptions = {
+		mode: {
+			name: "javascript"
+		}
+	};
+
+	// Combine the Options with the overriding config options
+	$scope.codeMirrorOptions = angular.extend({}, globalCodeMirrorOptions, customOptions);
+}
+
+
 /**
 * Create a global config object available in all scopes
 */
@@ -31,12 +44,11 @@ function getApp() : AngularModule {
 		$rootScope.GlobalConfig = {
 			// Overrides all existing codeMirror config (Dynamically configurable)
 			codeMirror: {
-				theme: "monokai",
 				lineNumbers: true,
 				wordWrap: true,
 				tabSize: 2,
-				onChange: function (codemirror) {
-					console.log("Codemirror changed");
+				onChange: function (codeMirror) {
+					console.log("CodeMirror changed");
 				}
 			}
 		}

@@ -1,9 +1,11 @@
 <!-- Todo Add Validation Messages -->
-<form name="blogDetailForm" >
+<form name="blogDetailForm" ng-controller="FooController">
     <div>
         <input type="hidden" ng-model="blog.id" >
     </div>
     <div>
+		<!-- The GlobalConfig Object is directly manipulated -->
+		<div>Global config changing</div>
 		<div>
 			Current theme :: {{GlobalConfig.codeMirror.theme}}
 		
@@ -12,10 +14,19 @@
 				<option value="default">default</option>
 			</select>
 			<div>Theme {{theme}}</div>
-		</div>
+		</div>		
+		
+		<!-- The scope for a specific CodeMirror model instance is modified -->
+		<div>Per Instance Changing</div>
+		<select ng-model="codeMirrorOptions.mode.name">
+			<option value="javascript" selected="selected">javascript</option>
+			<option value="xml">xml</option>
+		</select>
+		<div>Selected mode for this instance :: {{codeMirrorOptions.mode.name}}</div>
+
         Title : <input type="title" ng-model="blog.title" placeholder="Title"/>
 		<div><input type="text" ng-model="codeMirrorModel" /></div>
-        <textarea ui-codemirror="GlobalConfig.codeMirror" ng-model="codeMirrorModel" placeholder="Message"></textarea>
+        <textarea ui-codemirror="codeMirrorOptions" ng-model="codeMirrorModel" placeholder="Message"></textarea>
     </div>
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>
     <div ng-show="blog.id">
