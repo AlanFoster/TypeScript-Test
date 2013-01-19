@@ -22,3 +22,23 @@ function getApp() : AngularModule {
             .otherwise({ templateUrl : "lost.html"});
     });
 })(getApp());
+
+/**
+* Create a global config object available in all scopes
+*/
+(function (app) {
+	app.run(function($rootScope) {
+		$rootScope.GlobalConfig = {
+			// Overrides all existing codeMirror config (Dynamically configurable)
+			codeMirror: {
+				theme: "monokai",
+				lineNumbers: true,
+				wordWrap: true,
+				tabSize: 2,
+				onChange: function (codemirror) {
+					console.log("Codemirror changed");
+				}
+			}
+		}
+	});
+})(getApp());

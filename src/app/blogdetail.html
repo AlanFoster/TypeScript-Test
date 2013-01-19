@@ -1,13 +1,13 @@
 <!-- Todo Add Validation Messages -->
-<form name="blogDetailForm">
+<form name="blogDetailForm" >
     <div>
         <input type="hidden" ng-model="blog.id" >
     </div>
     <div>
 		<div>
-			Current theme :: {{GlobalCodeMirrorConfig.theme}}
+			Current theme :: {{GlobalConfig.codeMirror.theme}}
 		
-			<select ng-model="GlobalCodeMirrorConfig.theme" >
+			<select ng-model="GlobalConfig.codeMirror.theme" >
 				<option value="monokai" selected="selected">monokai</option>
 				<option value="default">default</option>
 			</select>
@@ -15,11 +15,10 @@
 		</div>
         Title : <input type="title" ng-model="blog.title" placeholder="Title"/>
 		<div><input type="text" ng-model="codeMirrorModel" /></div>
-        <textarea ui-codemirror="GlobalCodeMirrorConfig" ng-model="codeMirrorModel" placeholder="Message"></textarea>
+        <textarea ui-codemirror="GlobalConfig.codeMirror" ng-model="codeMirrorModel" placeholder="Message"></textarea>
     </div>
     <div><input type="button" ng-click="save()" value="Save Blog" ng-disabled="blogDetailForm.$invalid"></div>
     <div ng-show="blog.id">
         <input type="button" ng-click="remove()" value="Remove Blog">
     </div>
 </form>
-
