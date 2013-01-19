@@ -144,14 +144,19 @@ var BlogManagerController;
 
 function FooController($rootScope, $scope) {
 	var globalCodeMirrorOptions = $rootScope.GlobalConfig.codeMirror;
-	var customOptions = {
-		mode: {
-			name: "javascript"
-		}
+	var codeMirrorOptions = {};
+	var customCodeMirrorOptions = {
+		// ...
 	};
 
 	// Combine the Options with the overriding config options
-	$scope.codeMirrorOptions = angular.extend({}, globalCodeMirrorOptions, customOptions);
+	$scope.codeMirrorOptions = angular.extend(codeMirrorOptions, globalCodeMirrorOptions, customCodeMirrorOptions);
+	
+	// Watch for parent changes
+	// TODO AngularJs should be able to do this automatically most likely?
+	$rootScope.$watch("GlobalConfig.codeMirror", function(newGlobalCodeMirrorOptions, oldValue) {
+		$scope.codeMirrorOptions = angular.extend($scope.codeMirrorOptions, newGlobalCodeMirrorOptions);
+	}, true);
 }
 
 
